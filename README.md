@@ -241,8 +241,6 @@ schedule>=1.2.0
 - 🔗 GitHub: [@akanksha3-3](https://github.com/akanksha3-3)
 - 💼 LinkedIn: [akanksha-waghamode](https://www.linkedin.com/in/akanksha-waghamode-25aa9724a/)
 
-## 📜 License
-
 This project is for educational purposes. Please respect the terms of service of the websites being scraped.
 
 ---
