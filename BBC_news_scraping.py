@@ -39,10 +39,10 @@ def send_email(subject, html_body, recipients):
         server.starttls()
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
         server.send_message(msg)
-        print(f"📧 Email sent successfully (BCC) to: {', '.join(recipients)}")
+        print(f"Email sent successfully (BCC) to: {', '.join(recipients)}")
 
 def scrape_bbc():
-    print("🌐 Scraping BBC...")
+    print("Scraping BBC...")
     response = requests.get(BBC_URL)
     soup = BeautifulSoup(response.content, "html.parser")
     base_url = "https://www.bbc.com"
@@ -58,7 +58,7 @@ def scrape_bbc():
     return headlines
 
 def scrape_ndtv():
-    print("🌐 Scraping NDTV...")
+    print("Scraping NDTV...")
     response = requests.get(NDTV_URL)
     soup = BeautifulSoup(response.content, "html.parser")
     headlines = []
@@ -89,7 +89,7 @@ def scrape_and_send():
             seen_links.add(item['link'])
 
     if not unique_headlines:
-        print("⚠️ No headlines found.")
+        print("No headlines found.")
         return
 
     # Save to CSV
@@ -97,13 +97,13 @@ def scrape_and_send():
     df = pd.DataFrame(unique_headlines)
     filename = f"news_digest_{date_str}.csv"
     df.to_csv(filename, index=False)
-    print(f"✅ Combined headlines saved to {filename}")
+    print(f"Combined headlines saved to {filename}")
 
     # Create HTML email body
     html_content = f"""
     <html>
     <body style="font-family:Arial,sans-serif;">
-        <h2 style="color:#2b6cb0;">🗞️ Daily News Digest – {date_str}</h2>
+        <h2 style="color:#2b6cb0;"> Daily News Digest – {date_str}</h2>
         <p>Here are the top headlines from BBC & NDTV:</p>
         <ul>
     """
@@ -122,12 +122,13 @@ def scrape_and_send():
     </html>
     """
 
-    send_email(f"📰 Top News Digest – {date_str}", html_content, RECEIVER_EMAILS)
+    send_email(f"Top News Digest – {date_str}", html_content, RECEIVER_EMAILS)
 
-# 🔁 Schedule daily at 03:30 PM
+# Schedule daily at 03:30 PM
 schedule.every().day.at("00:12").do(scrape_and_send)
 
-print("⏳ Waiting for scheduled time... Press Ctrl+C to stop.")
+print("Waiting for scheduled time... Press Ctrl+C to stop.")
 while True:
     schedule.run_pending()
     time.sleep(1)
+
